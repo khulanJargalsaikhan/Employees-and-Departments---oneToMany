@@ -16,11 +16,11 @@
         <input type="hidden" th:field="*{photo}">
         Name: <input type="text" th:field="*{name}"><br>
         Job Title: <input type="text" th:field="*{jobtitle}"><br>
-<!-- HomeController @RequestParam("file")  - name should match-->
+
         Upload Photo: <input type="file" name="file"><br>
         Department:
         <select th:field="*{department}">
-            <!--        department.id -g haraad department name -g display hiine-->
+
             <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
         </select>
         <br>
