@@ -57,7 +57,7 @@ public class HomeController {
     public String addEmployee(Model model){
         model.addAttribute("employee", new Employee());
         model.addAttribute("departments", departmentRepository.findAll());
-        return "employeeForm";
+        return "employeeform";
     }
 
 
@@ -65,7 +65,7 @@ public class HomeController {
     public String updateEmployee(@PathVariable("id") long id, Model model){
         model.addAttribute("employee", employeeRepository.findById(id).get());
         model.addAttribute("departments", departmentRepository.findAll());
-        return "employeeForm";
+        return "employeeform";
     }
 
     @RequestMapping("/deleteEmployee/{id}")
