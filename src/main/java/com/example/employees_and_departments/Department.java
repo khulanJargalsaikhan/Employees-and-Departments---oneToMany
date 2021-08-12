@@ -10,7 +10,7 @@ public class Department {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)   //fetch = FetchType.EAGER  --> can't delete
     public Set<Employee> employees;
 
 

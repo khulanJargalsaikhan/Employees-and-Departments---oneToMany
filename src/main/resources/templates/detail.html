@@ -11,20 +11,15 @@
 <div th:replace="base :: navlinks"></div>
 
 <div class="container col-lg-10">
-    <div th:each="department : ${departments}">
-        <div>
-             <h2 th:inline="text">Department: [[${department.name}]]</h2>
-        </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div th:each="employee : ${department.employees}" class="card" style="width: 18rem;">
-                <img th:src="${employee.photo}" width="200" height="200" class="card-img-top" alt="employee-photo">
-                <div class="card-body">
-                    <h5 th:inline="text" class="card-title">[[${employee.name}]]</h5>
-                    <p th:inline="text" class="card-text">[[${employee.jobtitle}]]</p>
-                    <a th:href="@{/moreInfo/{id}(id=${employee.id})}" class="btn btn-primary">More Info</a>
-                </div>
-            </div>
+    <div th:each="employee : ${employees}" class="card" style="width: 18rem;">
+        <img th:src="${employee.photo}" width="200" height="200" class="card-img-top" alt="employee-photo">
+        <div class="card-body">
+            <p th:inline="text" class="card-title"><b>Employee name: </b> [[${employee.name}]]</p>
+            <p th:inline="text" class="card-text"><b>Employee title: </b> [[${employee.jobtitle}]]</p>
+            <p th:inline="text" class="card-text"><b>Department: </b> [[${employee.department.name}]]</p>
+            <a th:href="@{/updateEmployee/{id}(id=${employee.id})}" class="btn btn-primary">Update</a>
+            <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-primary">Delete</a>
         </div>
     </div>
 
@@ -33,14 +28,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

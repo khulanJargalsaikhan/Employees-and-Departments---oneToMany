@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -77,7 +78,7 @@ public class HomeController {
     @PostMapping("/processEmployee")
     public String processEmployee(@ModelAttribute Employee employee, @RequestParam("file") MultipartFile file){
         if(file.isEmpty() && (employee.getPhoto() == null || employee.getPhoto().isEmpty())){
-            employee.setPhoto("https://res.cloudinary.com/dqejdpdau/image/upload/v1628516926/sample.jpg");   //set up default photo
+            employee.setPhoto("https://res.cloudinary.com/dqejdpdau/image/upload/v1628789991/d20vhr0ywftubc4dcex7.jpg");   //set up default photo
         }else if(!file.isEmpty()) {
             try {
                 Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
@@ -90,6 +91,12 @@ public class HomeController {
         }
         employeeRepository.save(employee);
         return "redirect:/";
+    }
+
+    @RequestMapping("/moreInfo/{id}")
+    public String moreInfo(@PathVariable("id") long id, Model model){
+        model.addAttribute("employees", employeeRepository.findById(id).get());
+        return "detail";
     }
 
 
@@ -105,6 +112,21 @@ public class HomeController {
         model.addAttribute("departments", departmentRepository.findAll());
         return "allEmployees";
     }
+
+    @GetMapping("/search")
+    public String searchEmployee(Model model){
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String searchEmployee(Model model, @RequestParam(name="name") String name){
+        ArrayList<Employee> results = (ArrayList<Employee>) employeeRepository.findAllByName(name);
+        model.addAttribute("results", results);
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "result";
+    }
+
+
 
 
 }
